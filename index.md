@@ -1,37 +1,41 @@
-## Welcome to GitHub Pages
+```javascript
+/**
+ * 调整屏幕/窗口亮度为指定值，并保存原亮度。当窗口切换时，恢复原亮度。重新切换回来时，重新设置亮度为给定值。
+ * 若此功能不被支持，window.AutoBrightness 应与 false 等价 (null, undefined 等)
+ * 
+ * 例如：测量时，setBrightness(1) 会将屏幕设为最亮，如果这时用户切换app，比如接电话，屏幕将恢复原来的亮度。
+ * 接完电话后，用户切换回测量app，这时屏幕又变为最亮。
+ * 
+ * 注意：切换回测量app时，应记录当时屏幕亮度。
+ * @param {float} brightness - 亮度, 0为最暗，1为最亮
+ * @return {Promise} 表明操作是否完成，以及是否成功。
+ */
+window.mario.AutoBrightness.__proto__.setBrightness = function (brightness) {
+    // To be implemented
+}
 
-You can use the [editor on GitHub](https://github.com/luminagic/aladdin/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+/**
+ * 恢复屏幕亮度，并且不再自动设置屏幕亮度。即不论用户如何切换app，不再主动调整亮度。
+ * 
+ * @return {Promise} 表明操作是否完成，以及是否成功。
+ */
+window.mario.AutoBrightness.__proto__.clear = function () {
+    // To be implemented
+}
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+/**
+ * 生成一个新的授权token。该token应当为JWT格式。
+ * 
+ * 该token的签名方式应当使用RS256。即header内容为 {"alg":"RS256","typ":"JWT"}。
+ * payload应当含有以下字段：
+ *  - user: 用户的id
+ *  - exp: 时间戳
+ *  - iss: 签发方
+ *  - rand: 一个随机值
+ * 
+ * @return {Promise} 表明操作是否完成，以及是否成功。若成功，可以从中获得token字符串。
+ */
+window.mario.Auth.__proto__.getJwtToken = function () {
+    // To be implemented
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/luminagic/aladdin/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
