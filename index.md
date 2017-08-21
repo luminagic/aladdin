@@ -1,3 +1,18 @@
+# MeoMo iMeter 嵌入版 (aladdin) 集成指南
+
+## 接口函数
+
+Aladdin 采用 单一入口 + dispatch 的设计方式。
+即所有javascript函数调用一个单一的入口，此入口根据输入参数，再调用真正的逻辑实现代码。
+
+```javascript
+window.aladdin.hasObject(object);
+
+window.aladdin.exec(resolve, reject, object, method, args);
+```
+
+## 亮度调整
+
 ```javascript
 /**
  * 调整屏幕/窗口亮度为指定值，并保存原亮度。当窗口切换时，恢复原亮度。重新切换回来时，重新设置亮度为给定值。
@@ -10,7 +25,7 @@
  * @param {float} brightness - 亮度, 0为最暗，1为最亮
  * @return {Promise} 表明操作是否完成，以及是否成功。
  */
-window.mario.AutoBrightness.__proto__.setBrightness = function (brightness) {
+AutoBrightness.__proto__.setBrightness = function (brightness) {
     // To be implemented
 }
 
@@ -19,10 +34,14 @@ window.mario.AutoBrightness.__proto__.setBrightness = function (brightness) {
  * 
  * @return {Promise} 表明操作是否完成，以及是否成功。
  */
-window.mario.AutoBrightness.__proto__.clear = function () {
+AutoBrightness.__proto__.clear = function () {
     // To be implemented
 }
+```
 
+## 生成授权token
+
+```javascript
 /**
  * 生成一个新的授权token。该token应当为JWT格式。
  * 
@@ -35,7 +54,7 @@ window.mario.AutoBrightness.__proto__.clear = function () {
  * 
  * @return {Promise} 表明操作是否完成，以及是否成功。若成功，可以从中获得token字符串。
  */
-window.mario.Auth.__proto__.getJwtToken = function () {
+Auth.__proto__.getJwtToken = function () {
     // To be implemented
-
+}
 ```
