@@ -30,10 +30,10 @@ window.aladdin.exec(resolve, reject, service, action, args);
 
 传入的回调函数 `resolve` 和 `reject` 可能为 `null`，即不需要回调。
 
-__注意__：Action 的执行不强制为异步，但对于不能立即返回的实现，应使用异步方式。
+__注意__: Action 的执行不强制为异步，但对于不能立即返回的实现，应使用异步方式。
 
 ## Services
-Aladdin 会试图调用以下 Service：
+Aladdin 会试图调用以下 Service:
   - AutoBrightness
   - Auth
 
@@ -46,18 +46,22 @@ Aladdin 会试图调用以下 Service：
 例如：测量时，`setBrightness(1)` 会将屏幕设为最亮，如果这时用户切换app，比如接电话，屏幕将恢复原来的亮度。
 接完电话后，用户切换回测量app，这时屏幕又变为最亮。
 
-__注意__：切换回测量app时，应记录当时屏幕亮度。
+__注意__: 切换回测量app时，应记录当时屏幕亮度。
 
-__注意2__： 若程序被终止，则此亮度记录应当被丢弃。因为下次启动时，不会直接进入测量界面。
+__注意2__: 若程序被终止，则此亮度记录应当被丢弃。因为下次启动时，不会直接进入测量界面。
 
-参数：
+参数:
   - `brightness`, float: 亮度, 0为最暗，1为最亮
 
 
 #### Action: clear
 恢复屏幕亮度，并且不再自动设置屏幕亮度。即不论用户如何切换app，不再主动调整亮度。
 
-### 生成授权token：Auth
+参数: 无
+
+返回值: 无
+
+### 生成授权token: Auth
 
 #### Action: getJwtToken
 生成一个新的授权token。该token应当为JWT格式。
@@ -66,11 +70,26 @@ __注意2__： 若程序被终止，则此亮度记录应当被丢弃。因为�
 
 payload应当含有以下字段：
  - `usr`: 用户的id
- - `exp`: 有效期时间戳
+ - `exp`: 有效期时间戳, 即 Unix 时间戳，或称为 epoch time, 以毫秒记。
+ - `aud`: `meomo`
  - `iss`: 签发方，请与我们联系，协商此字段的具体内容
  - `rnd`: 一个随机值
 
-返回值，string：JWT token
+参数:
+  - `audience`, string: token 的接收方，应为 `meomo`, app 端应验证与 web 端的域名 `*.meomo.cn` 一致。
+
+返回值，string: JWT token
 
 __注意__：由于此 token 的验证为 offline 进行，所以无法撤销。为保证安全，请不要授权太长时间。
 我们的建议是有效期 15 分钟以下。
+
+### 二维码扫描： CodeReader
+
+#### Action: scan
+读取条形码, QR码, 或者其他二维码。
+
+参数: 无
+
+返回值:
+ - 若用户取消扫描操作，返回 `null`
+ - 若成功扫描，返回读码结果字符串。
